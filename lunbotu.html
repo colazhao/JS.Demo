@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简易轮播图</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	h2{
+		text-align: center;
+		margin-top: 50px;
+
+	}
+	#div1{
+		width: 576px;
+		height: 384px;
+		background: red;
+		margin: 100px auto;
+		overflow: hidden;
+		position: relative;
+	}
+	#banner{
+		width: 3456px;
+		height: 384px;
+		
+		position: absolute;
+		float: left;
+		overflow: hidden;
+	}
+	#banner img{
+		width: 576px;
+		height: 384px;
+		z-index: 1;
+		float: left;
+	}
+	.pailie{
+		width: 200px;
+		height: 20px;
+		/*background-color: red;*/
+		float: right;
+		overflow: hidden;
+		z-index: 99;
+		list-style: none;
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+	}
+	ol li{
+		width: 20px;
+		height: 20px;
+		float: left;
+		background-color: white;
+		margin-left: 10px;
+		border: 1px solid orange;
+
+		font-size: 12px;
+		font-family: "微软雅黑";
+		font-weight: 400;
+		text-align: center;
+		line-height: 20px;
+		cursor: pointer;
+	}
+	.active{
+		background-color: orange;
+		color: white;
+
+	}
+	</style>
+	<script src="wanmeiyundongkuangjia.js"></script>
+	<script>
+		window.onload=function()
+		{
+			var oDiv=document.getElementById('div1');
+			var oUl=oDiv.getElementsByTagName('div')[0];
+			var oLi=oUl.getElementsByTagName('img');
+			var oBtn=oDiv.getElementsByTagName('ol')[0].getElementsByTagName('li');
+
+			var now=0;
+			for(var i=0;i<oBtn.length;i++)
+			{
+				oBtn[i].index=i;
+				oBtn[i].onclick=function()
+				{
+					now=this.index;
+					tab();
+				}
+				
+			}
+
+			function tab()
+			{
+				for(var i=0;i<oBtn.length;i++)
+					 {
+					 	oBtn[i].className='';
+					 }
+					oBtn[now].className='active';
+					// oUl.style.top=-384*this.index+'px';
+					startmove(oUl,{left:-576*now});
+			}
+
+			function next()
+			{
+				now++;
+				if(now==oBtn.length)
+				{
+					now=0;
+				}
+				tab();
+			}
+
+			var timer=setInterval(next,3000);
+
+			oDiv.onmouseover=function()
+			{
+				clearInterval(timer);
+			}
+			oDiv.onmouseout=function()
+			{
+				timer=setInterval(next,3000);
+			}
+		}
+	</script>
+</head>
+<body>
+<h2>轮播图</h2>
+	<div id="div1">
+		<div id="banner">
+			<img src="img1/1.jpeg" alt="">
+			<img src="img1/2.jpg" alt="">
+			<img src="img1/3.jpeg" alt="">
+			<img src="img1/4.jpg" alt="">
+			<img src="img1/5.jpeg" alt="">
+			<img src="img1/6.jpg" alt="">
+		</div>
+		<ol class="pailie">
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ol>
+	</div>
+</body>
+</html>
